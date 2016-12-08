@@ -1,0 +1,30 @@
+{
+  "name": "moisturous",
+  "version": "1.0.0",
+  "description": "text alerts to prevent dry skin",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/csjiang/moisturo.us.git"
+  },
+  "author": "Christine Jiang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/csjiang/moisturo.us/issues"
+  },
+  "homepage": "https://github.com/csjiang/moisturo.us#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "connect-flash": "^0.1.1",
+    "csurf": "^1.9.0",
+    "dotenv": "^2.0.0",
+    "express": "^4.14.0",
+    "express-session": "^1.14.2",
+    "http": "0.0.0",
+    "morgan": "^1.7.0",
+    "twilio": "^2.11.1"
+  }
+}
