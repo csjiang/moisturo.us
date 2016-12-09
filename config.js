@@ -12,7 +12,7 @@ cfg.port = process.env.PORT || 3000;
 
 // A random string that will help generate secure one-time passwords and
 // HTTP sessions
-cfg.secret = process.env.APP_SECRET || 'keyboard cat';
+cfg.secret = process.env.APP_SECRET || 'whaling community';
 
 //twilio and wunderground api credentials
 cfg.accountSid = process.env.TWILIO_ACCOUNT_SID;

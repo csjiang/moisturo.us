@@ -9,7 +9,7 @@ const http = require('http');
 const twilio = require('twilio');
 
 const generateMessage = require('./how-moist');
-// const `config` = require('./config');
+const `config` = require('./config');
 
 // Create Express web app
 const app = express();
@@ -20,7 +20,7 @@ if (process.env.NODE_ENV !== 'test') {
 }
 
 // Serve static assets
-// app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Parse incoming form-encoded HTTP bodies
 app.use(bodyParser.urlencoded({
@@ -28,11 +28,11 @@ app.use(bodyParser.urlencoded({
 }));
 
 // Create and manage HTTP sessions for all requests
-// app.use(session({
-//   secret: config.secret,
-//   resave: true,
-//   saveUninitialized: true
-// }));
+app.use(session({
+  secret: config.secret,
+  resave: true,
+  saveUninitialized: true
+}));
 
 // Use connect-flash to persist informational messages across redirects
 app.use(flash());
@@ -43,17 +43,16 @@ app.use(flash());
 // const router = express.Router();
 
 // Add CSRF protection for web routes
-// if (process.env.NODE_ENV !== 'test') {
-//   app.use(csurf());
-//   app.use((request, response, next) => {
-//     response.locals.csrftoken = request.csrfToken();
-//     next();
-//   });
-// }
+if (process.env.NODE_ENV !== 'test') {
+  app.use(csurf());
+  app.use((request, response, next) => {
+    response.locals.csrftoken = request.csrfToken();
+    next();
+  });
+}
 
 // routes(router);
 // app.use(router);
-
 
 //receiving incoming messages
 app.post('/', (req, res) => {
@@ -67,8 +66,9 @@ app.post('/', (req, res) => {
   })
 });
 
-http.createServer(app).listen(1337, () => {
-  console.log("Express server listening on port 1337");
+// Start the server
+http.createServer(app).listen(1239, () => {
+  console.log("Express server listening on port 1239");
 });
 
 // Handle 404

@@ -1,13 +1,13 @@
 const rp = require('request-promise');
 const moment = require('moment');
-// const config = require('./config');
+const config = require('./config');
 
 const generateMessage = (zip) => {
   let message = ''; 
 
   const zipCode = zip.toString();
 
-  // var appId = config.appId; 
+  const appId = config.appId; 
   const options = {
     uri: `http://api.wunderground.com/api/${appId}/geolookup/conditions/q/${zipCode}.json`,
     headers: {
