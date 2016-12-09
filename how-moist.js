@@ -1,23 +1,29 @@
-const generateMessage = (zipCode) => {
+const rp = require('request-promise');
+const moment = require('moment');
+// const config = require('./config');
 
-  var request = require('request');
-  var moment = require('moment');
-  // var config = require('./config');
-  
-  var appId = config.appId; 
+const generateMessage = (zip) => {
+  let message = ''; 
 
-  var uri = `http://api.wunderground.com/api/${appId}/conditions/q/${zipCode}.json`;
-  
-  request(uri, function(err, req, body){
-    
-    // parse response body
-    var data = JSON.parse(body);
+  const zipCode = zip.toString();
 
+  // var appId = config.appId; 
+  const options = {
+    uri: `http://api.wunderground.com/api/${appId}/geolookup/conditions/q/${zipCode}.json`,
+    headers: {
+        'User-Agent': 'Request-Promise'
+    },
+    json: true 
+  };
+
+  return rp(options)
+  .then(data => {
     //return the appropriate message based on humidity 
     const humidity = data.current_observation.relative_humidity;
     const moistMessage = `Humidity for today is ${humidity}... not quite dry enough to require moisturizing, but moisturo.us wishes you a most beautiful and moist day!`;
     const dryMessage = `Oh, dear! Relative humidity in your area today is only ${humidity}% ... please remember to apply moisturizer liberally and frequently to provide dry skin! Also, moisturo.us wishes you a most beautiful and moist day!`;
-    humidity < 50 
+
+    parseInt(humidity.match(/\d+/)) < 50 
     ? message = dryMessage
     : message = moistMessage
 
@@ -25,5 +31,5 @@ const generateMessage = (zipCode) => {
   });
 };
 
+
 module.exports = generateMessage;
-generateMessage(10128); //for testing

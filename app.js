@@ -11,8 +11,6 @@ const twilio = require('twilio');
 const generateMessage = require('./how-moist');
 // const `config` = require('./config');
 
-// const twilioNotifications = require('./middleware/twilioNotifications');
-
 // Create Express web app
 const app = express();
 
@@ -58,12 +56,15 @@ app.use(flash());
 
 
 //receiving incoming messages
-app.post('/sms', (req, res) => {
-  const twilio = require('twilio');
+app.post('/', (req, res) => {
   const twiml = new twilio.TwimlResponse();
-  twiml.message(generateMessage(req.body));
-  res.writeHead(200, {'Content-Type': 'text/xml'});
-  res.end(twiml.toString());
+  const moistMessage = generateMessage(req.body.Body);
+  moistMessage.then(message => {
+    twiml.message(message);
+    console.log(message);
+    res.writeHead(200, {'Content-Type': 'text/xml'});
+    res.end(twiml.toString());
+  })
 });
 
 http.createServer(app).listen(1337, () => {
@@ -75,9 +76,6 @@ app.use((request, response, next) => {
   response.status(404);
   response.sendFile(path.join(__dirname, 'public', '404.html'));
 });
-
-// Mount middleware to notify Twilio of errors
-// app.use(twilioNotifications.notifyOnError);
 
 // Handle Errors
 app.use((err, request, response, next) => {
