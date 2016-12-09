@@ -54,6 +54,11 @@ if (process.env.NODE_ENV !== 'test') {
 // routes(router);
 // app.use(router);
 
+app.get('/', (req, res) => {
+  console.log('Testing testing! Successful GET request!');
+  res.send(200);
+})
+
 //receiving incoming messages
 app.post('/', (req, res) => {
   const twiml = new twilio.TwimlResponse();
@@ -67,8 +72,8 @@ app.post('/', (req, res) => {
 });
 
 // Start the server
-http.createServer(app).listen(1239, () => {
-  console.log("Express server listening on port 1239");
+http.createServer(app).listen(config.port, () => {
+  console.log(`Express server listening on port ${config.port}`);
 });
 
 // Handle 404
