@@ -56,7 +56,8 @@ if (process.env.NODE_ENV !== 'test') {
 
 app.get('/', (req, res) => {
   console.log('Testing testing! Successful GET request!');
-  res.send(200);
+  res.sendStatus(200);
+  res.end();
 })
 
 //receiving incoming messages
