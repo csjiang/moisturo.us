@@ -9,7 +9,7 @@ const http = require('http');
 const twilio = require('twilio');
 
 const generateMessage = require('./how-moist');
-const `config` = require('./config');
+const config = require('./config');
 
 // Create Express web app
 const app = express();
